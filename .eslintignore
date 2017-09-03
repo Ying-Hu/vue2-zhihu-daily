@@ -1,0 +1,4 @@
+build/*.js
+config/*.js
+src/components/swiper/swiper.min.js
+src/filters/index.js
