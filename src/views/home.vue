@@ -69,6 +69,7 @@ export default {
     },
     _initScroll () {
       this.homeScroll = new BScroll(this.$refs.homewrapper, {
+        pullUpLoad: true,
         click: true
       })
     }
