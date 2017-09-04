@@ -32,18 +32,13 @@ export default {
       scroller: null,
       list: [],
       swiper: '',
-      topStories: [],
-      test: [1, 2]
+      topStories: []
     }
   },
   components: {
     vswiper
   },
   created () {
-    // let timeString = '20170903'
-    // let time = timeString.substr(0, 4) + '/' + timeString.substr(4, 2) + '/' + timeString.substr(6, 2)
-    // console.log(time)
-    // console.log(Date.parse('2017/09/03'))
     this.getList(1)
   },
   mounted () {
