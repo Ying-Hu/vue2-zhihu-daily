@@ -102,7 +102,7 @@
         default: 20
       }
     },
-    data() {
+    data () {
       return {
         beforePullDown: true,
         isRebounding: false,
@@ -115,27 +115,27 @@
       }
     },
     computed: {
-      pullUpTxt() {
+      pullUpTxt () {
         const moreTxt = this.pullUpLoad && this.pullUpLoad.txt && this.pullUpLoad.txt.more || DEFAULT_LOAD_TXT_MORE
 
         const noMoreTxt = this.pullUpLoad && this.pullUpLoad.txt && this.pullUpLoad.txt.noMore || DEFAULT_LOAD_TXT_NO_MORE
 
         return this.pullUpDirty ? moreTxt : noMoreTxt
       },
-      refreshTxt() {
+      refreshTxt () {
         return this.pullDownRefresh && this.pullDownRefresh.txt || DEFAULT_REFRESH_TXT
       }
     },
-    created() {
+    created () {
       this.pullDownInitTop = -50
     },
-    mounted() {
+    mounted () {
       setTimeout(() => {
         this.initScroll()
       }, 20)
     },
     methods: {
-      initScroll() {
+      initScroll () {
         if (!this.$refs.wrapper) {
           return
         }
@@ -173,29 +173,29 @@
           this._initPullUpLoad()
         }
       },
-      disable() {
+      disable () {
         this.scroll && this.scroll.disable()
       },
-      enable() {
+      enable () {
         this.scroll && this.scroll.enable()
       },
-      refresh() {
+      refresh () {
         this.scroll && this.scroll.refresh()
       },
-      scrollTo() {
+      scrollTo () {
         this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
       },
-      scrollToElement() {
+      scrollToElement () {
         this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
       },
-      clickItem(e, item) {
+      clickItem (e, item) {
         console.log(e)
         this.$emit('click', item)
       },
-      destroy() {
+      destroy () {
         this.scroll.destroy()
       },
-      forceUpdate(dirty) {
+      forceUpdate (dirty) {
         if (this.pullDownRefresh && this.isPullingDown) {
           this.pulling = false
           this._reboundPullDown().then(() => {
@@ -210,7 +210,7 @@
           this.refresh()
         }
       },
-      _initPullDownRefresh() {
+      _initPullDownRefresh () {
         this.scroll.on('pullingDown', () => {
           this.beforePullDown = false
           this.isPullingDown = true
@@ -231,13 +231,13 @@
           }
         })
       },
-      _initPullUpLoad() {
+      _initPullUpLoad () {
         this.scroll.on('pullingUp', () => {
           this.isPullUpLoad = true
           this.$emit('pullingUp')
         })
       },
-      _reboundPullDown() {
+      _reboundPullDown () {
         const {stopTime = 600} = this.pullDownRefresh
         return new Promise((resolve) => {
           setTimeout(() => {
@@ -248,7 +248,7 @@
           }, stopTime)
         })
       },
-      _afterPullDown() {
+      _afterPullDown () {
         setTimeout(() => {
           this.pullDownStyle = `top:${this.pullDownInitTop}px`
           this.beforePullDown = true
@@ -258,7 +258,7 @@
       }
     },
     watch: {
-      data() {
+      data () {
         setTimeout(() => {
           this.forceUpdate(true)
         }, this.refreshDelay)

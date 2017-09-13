@@ -10,21 +10,21 @@
         default: 0
       }
     },
-    data() {
+    data () {
       return {
         width: 50,
         height: 80
       }
     },
     computed: {
-      distance() {
+      distance () {
         return Math.max(0, Math.min(this.y * this.ratio, this.maxDistance))
       },
-      style() {
+      style () {
         return `width:${this.width / this.ratio}px;height:${this.height / this.ratio}px`
       }
     },
-    created() {
+    created () {
       this.ratio = window.devicePixelRatio
       this.width *= this.ratio
       this.height *= this.ratio
@@ -42,11 +42,11 @@
         y: this.initCenterY
       }
     },
-    mounted() {
+    mounted () {
       this._draw()
     },
     methods: {
-      _draw() {
+      _draw () {
         const bubble = this.$refs.bubble
         let ctx = bubble.getContext('2d')
         ctx.clearRect(0, 0, bubble.width, bubble.height)
@@ -55,7 +55,7 @@
 
         this._drawArrow(ctx)
       },
-      _drawBubble(ctx) {
+      _drawBubble (ctx) {
         ctx.save()
         ctx.beginPath()
 
@@ -105,7 +105,7 @@
         ctx.stroke()
         ctx.restore()
       },
-      _drawArrow(ctx) {
+      _drawArrow (ctx) {
         ctx.save()
         ctx.beginPath()
 
@@ -131,7 +131,7 @@
       }
     },
     watch: {
-      y() {
+      y () {
         this._draw()
       }
     }
