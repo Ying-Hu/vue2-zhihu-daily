@@ -13,8 +13,8 @@ const Axios = {
       }
     })
   },
-  getTopics: () => axios.get(API.TopicsIdResource),
-  getTopicsById: (topicId) => axios.get(API.TopicsIdResource + topicId),
+  getThemes: () => axios.get(API.ThemesResource),
+  getThemesById: (themeId) => axios.get(API.ThemesIdResource + themeId),
   getSections: () => axios.get(API.SectionsResource),
   getSectionsById: (sectionId) => {
     axios.get(API.SectionIdResource, {

@@ -6,8 +6,8 @@ const api = {
   newsbyid: '/4/news/',
   newsbydate: '/4/news/before/',
   newsinfo: '/4/story-extra',
-  topics: '/4/themes',
-  topicbyid: '/4/theme/',
+  themes: '/4/themes',
+  themebyid: '/4/theme/',
   sections: '/3/sections',
   sectionbyid: '/3/section'
 }
@@ -17,8 +17,8 @@ const API = {
   NewsIdResource: API_CONTEXT + api.newsbyid,
   NewsDateResource: API_CONTEXT + api.newsbydate,
   NewsInfoResource: API_CONTEXT + api.newsinfo,
-  TopicsResource: API_CONTEXT + api.topics,
-  TopicsIdResource: API_CONTEXT + api.topicbyid,
+  ThemesResource: API_CONTEXT + api.themes,
+  ThemesIdResource: API_CONTEXT + api.themebyid,
   SectionsResource: API_CONTEXT + api.sections,
   SectionIdResource: API_CONTEXT + api.sectionbyid
 }
