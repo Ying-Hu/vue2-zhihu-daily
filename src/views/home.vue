@@ -32,21 +32,10 @@ import Axios from 'api/index'
 export default {
   name: 'home',
   data () {
-    // return {
-    //   refreshing: false,
-    //   trigger: null,
-    //   loading: false,
-    //   count: 1,
-    //   scroller: null,
-    //   list: [],
-    //   swiper: '',
-    //   pullUpLoad: true,
-    //   topStories: []
-    // }
     return {
-      resdata: null,
       list: [],
       topStories: [],
+      date: '',
       scrollbar: true,
       scrollbarFade: true,
       pullUpLoad: true,
@@ -61,54 +50,46 @@ export default {
     Scroll
   },
   created () {
-    this.getList(1)
+    this.getList()
   },
   mounted () {
   },
   methods: {
-    getList (type) {
-      if (type) {
-        // 获取热门消息
-        Axios.getNews()
-        .then(res => {
-          console.log(res.data)
-          this.resdata = res.data
-          this.list.push(res.data)
-          this.topStories = res.data.top_stories
-          console.log('list', this.list)
-          this.$nextTick(() => {
-            // this._initScroll()
-          })
-        })
-        .catch(err => {
-          console.log(err)
-        })
-      } else {
-        Axios.getNewsByDate(this.count)
-        .then(res => {
-          console.log('getNewsByDate', res.data)
-          this.list.push(res.data)
-        })
-      }
+    getList () {
+      // 获取热门消息
+      Axios.getNews()
+      .then(res => {
+        // console.log(res.data)
+        this.list.push(res.data)
+        this.topStories = res.data.top_stories
+        this.date = res.data.date
+        // console.log(this.date)
+        console.log('list', this.list)
+      })
+      .catch(err => {
+        console.log(err)
+      })
     },
-    // _initScroll () {
-    //   this.homeScroll = new BScroll(this.$refs.homewrapper, {
-    //     pullUpLoad: true,
-    //     click: true
-    //   })
-    // }
+    getListByDate (date) {
+      // 获取过往消息
+      Axios.getNewsByDate(date)
+      .then(res => {
+        console.log('getNewsByDate', res.data)
+        this.date = res.data.date
+        this.list.push(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
     onPullingUp () {
+      let _this = this
       // 更新数据
       setTimeout(() => {
-        if (Math.random() > 0.5) {
-          // 如果有新数据
-          console.log('new data')
-          this.list.push(this.resdata)
-        } else {
-          // 如果没有新数据
-          this.$refs.scroll.forceUpdate()
-        }
-      }, 1000)
+        // 获取新数据
+        console.log('request new data ...')
+        _this.getListByDate(_this.date)
+      }, 500)
     }
   },
   computed: {
@@ -123,17 +104,6 @@ export default {
 </script>
 
 <style lang="stylus">
-// 滚动原理
-  // .home-wrapper
-  //   position absolute
-  //   width 100%
-  //   top 0
-  //   left 0
-  //   right 0
-  //   bottom 0
-  //   overflow hidden
-  //   .home-content
-  //     width 100%
 // swiper style
   .swiper-container
     width 100%

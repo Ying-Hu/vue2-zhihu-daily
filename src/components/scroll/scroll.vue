@@ -2,9 +2,6 @@
   <div ref="wrapper" class="list-wrapper">
     <div>
       <slot>
-        <ul class="list-content">
-          <li @click="clickItem($event,item)" class="list-item" v-for="item in data">{{item}}</li>
-        </ul>
       </slot>
       <slot name="pullup"
             :pullUpLoad="pullUpLoad"
@@ -281,16 +278,16 @@
     bottom: 0
     overflow: hidden
     background: #fff
-    .list-content
-      position: relative
-      z-index: 10
-      background: #fff
-      .list-item
-        height: 60px
-        line-height: 60px
-        font-size: 18px
-        padding-left: 20px
-        border-bottom: 1px solid #e5e5e5
+    // .list-content
+    //   position: relative
+    //   z-index: 10
+    //   background: #fff
+    //   .list-item
+    //     height: 60px
+    //     line-height: 60px
+    //     font-size: 18px
+    //     padding-left: 20px
+    //     border-bottom: 1px solid #e5e5e5
 
   .pulldown-wrapper
     position: absolute

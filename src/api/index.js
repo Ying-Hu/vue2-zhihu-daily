@@ -5,7 +5,7 @@ import API from './resource'
 const Axios = {
   getNews: () => axios.get(API.NewsResource),
   getNewsById: (id) => axios.get(API.NewsIdResource + id),
-  getNewsByData: (data) => axios.get(API.NewsDateResource + data),
+  getNewsByDate: (date) => axios.get(API.NewsDateResource + date),
   getNewsInfoById: (id) => {
     axios.get(API.NewsInfoResource, {
       params: {
