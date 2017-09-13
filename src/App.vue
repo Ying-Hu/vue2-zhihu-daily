@@ -4,7 +4,7 @@
     <header class="header">
       <i v-if="true" class="iconfont icon-caidan"></i>
       <div class="title-content">
-        <Loading></Loading>
+        <!-- <Loading></Loading> -->
         <h1 class="theme-title">Today Hot News</h1>
       </div>
       <i class="iconfont icon-add"></i>

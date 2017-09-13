@@ -3,6 +3,7 @@
     <div class="home-content">
       <Scroll ref="scroll"
               :data = "[]"
+              :click = "click"
               :scrollbar="false"
               :pullUpLoad="pullUpLoadObj"
               :startY="parseInt(startY)"
@@ -12,7 +13,7 @@
       <!-- 新闻列表 -->
         <div class="list-wrap" v-for="list in list">
           <div class="news-time">{{list.date | dateFormat}}</div>
-          <div class="news-wrapper" v-for="(news, index) in list.stories" :key="index">
+          <div class="news-wrapper" v-for="(news, index) in list.stories" :key="index" @click="clickItem($event, news)">
             <div class="news-list">
               <p class="news-title">{{ news.title }}</p>
               <img class="news-img" :src="news.images[0]"></img>
@@ -40,9 +41,10 @@ export default {
       scrollbarFade: true,
       pullUpLoad: true,
       pullUpLoadThreshold: 50,
-      pullUpLoadMoreTxt: '加载更多',
+      pullUpLoadMoreTxt: ' ',
       pullUpLoadNoMoreTxt: '没有更多数据了',
-      startY: 0
+      startY: 0,
+      click: true
     }
   },
   components: {
@@ -90,6 +92,9 @@ export default {
         console.log('request new data ...')
         _this.getListByDate(_this.date)
       }, 500)
+    },
+    clickItem (event, item) {
+      console.log('click item', event, item)
     }
   },
   computed: {
@@ -153,6 +158,7 @@ export default {
         border-bottom 1px solid #ddd
         .news-title
           font-size 14px
+          line-height 20px
           color #2f2f2f
           margin-right .2rem
           height 50px
