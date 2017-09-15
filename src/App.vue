@@ -19,15 +19,15 @@
       <!-- 用户操作 -->
       <div class="user-operate">
         <span class="collect op-item">
-          <i class="iconfont icon-add"></i>
+          <i class="iconfont icon-collect"></i>
           <span>收藏</span>
         </span>
         <span class="msg op-item">
-          <i class="iconfont icon-add"></i>
+          <i class="iconfont icon-message"></i>
           <span>消息</span>
         </span>
         <span class="setting op-item">
-          <i class="iconfont icon-add"></i>
+          <i class="iconfont icon-mzicon-setting"></i>
           <span>设置</span>
         </span>
       </div>
@@ -37,19 +37,19 @@
           <ul class="theme-content">
             <li>
               <span class="home">
-                <i class="iconfont icon-add"></i>
+                <i class="iconfont icon-home"></i>
                 <span>Home</span>
               </span>
-              <i class="iconfont icon-add"></i>
+              <i class="iconfont icon-right"></i>
             </li>
-            <li class="theme" v-for="theme in themeList" :key="theme.id">{{theme.name}} {{theme.id}} <i class="iconfont icon-add"></i></li>
+            <li class="theme" v-for="theme in themeList" :key="theme.id">{{theme.name}} {{theme.id}} <i class="iconfont icon-add1"></i></li>
           </ul>
         </div>
       </div>
       <!-- aside footer -->
       <div class="aside-footer">
-        <span class="off-line"><i class="iconfont icon-add"></i>离线</span>
-        <span class="night-theme"><i class="iconfont icon-add"></i>夜间</span>
+        <span class="off-line"><i class="iconfont icon-download"></i>离线</span>
+        <span class="night-theme"><i class="iconfont icon-night"></i>夜间</span>
       </div>
     </aside>
 
@@ -208,7 +208,7 @@ export default {
         display flex
         justify-content center
         align-items center
-        height .8rem
+        height 1rem
         margin-right .3rem
         .iconfont
           margin-right .2rem
