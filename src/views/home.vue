@@ -109,6 +109,8 @@ export default {
 </script>
 
 <style lang="stylus">
+  .home-wrapper
+    height 100%
 // swiper style
   .swiper-container
     width 100%

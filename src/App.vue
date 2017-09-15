@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 头部 -->
     <header class="header">
-      <i v-if="true" class="iconfont icon-caidan"></i>
+      <i v-if="true" class="iconfont icon-caidan" @click="toggleBar(true)"></i>
       <div class="title-content">
         <!-- <Loading></Loading> -->
         <h1 class="theme-title">Today Hot News</h1>
@@ -10,7 +10,7 @@
       <i class="iconfont icon-add"></i>
     </header>
     <!-- 主题选择 -->
-    <aside class="aside">
+    <aside class="aside" :class="{showbar: showbar}">
       <!-- 用户信息 -->
       <div class="user-info">
         <img src="http://ol5i1a679.bkt.clouddn.com/head.JPG" class="user-pic">
@@ -53,6 +53,8 @@
       </div>
     </aside>
 
+      <!-- 遮罩 -->
+      <div class="mask" v-show="showmask" @click="toggleBar(false)"></div>
     <router-view></router-view>
   </div>
 </template>
@@ -69,13 +71,24 @@ export default {
   data () {
     return {
       themeList: [],
-      click: true
+      click: true,
+      showmask: false,
+      showbar: false
     }
   },
   components: {
     Loading
   },
   methods: {
+    toggleBar (flag) {
+      if (flag) {
+        this.showbar = true
+        this.showmask = true
+      } else {
+        this.showbar = false
+        this.showmask = false
+      }
+    },
     getThemeList () {
       Axios.getThemes()
       .then(res => {
@@ -103,6 +116,9 @@ export default {
 </script>
 
 <style lang="stylus">
+  #app
+    width 100%
+    height 100%
   .header
     position fixed
     top 0
@@ -132,7 +148,7 @@ export default {
   .aside
     position absolute
     top 0
-    left 0
+    left -5.56rem
     z-index 9999
     width 5.5rem
     height 100%
@@ -142,7 +158,8 @@ export default {
     justify-content flex-start
     background-color #232a30
     color #8b9094
-    opacity .97
+    opacity .88
+    transition: all .3s ease
     .user-info
       width 100%
       display flex
@@ -156,6 +173,7 @@ export default {
         font-size 16px
     .user-operate
       width 100%
+      padding-right .5rem
       margin-top .3rem
       margin-bottom .2rem
       font-size 14px
@@ -178,6 +196,7 @@ export default {
         left 0
         bottom 0
         right 0
+        padding-right .4rem
         overflow hidden
         .theme-content
           width 100%
@@ -189,14 +208,14 @@ export default {
             justify-content space-between
             align-items center
             height 1.18rem
-            font-size 14px
+            font-size 18px
             .iconfont
               font-size 22px
           .home
             display flex
             align-items center
             .iconfont
-              font-size 22px
+              font-size 30px
               margin-right .3rem
 
 
@@ -213,5 +232,17 @@ export default {
         .iconfont
           margin-right .2rem
           font-size 26px
+  .showbar
+    transform: translateX(5.56rem)
+
+  .mask
+    position fixed
+    top 0
+    left 0
+    width 100%
+    height 100%
+    z-index 9998
+    background-color #232a30
+    opacity .7
 </style>
 
