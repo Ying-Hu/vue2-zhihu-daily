@@ -35,14 +35,14 @@
       <div class="list-main">
         <div class="listwrapper" ref="listwrapper">
           <ul class="theme-content">
-            <li>
+            <li @click="goThemePage(1)">
               <span class="home">
                 <i class="iconfont icon-home"></i>
                 <span>Home</span>
               </span>
               <i class="iconfont icon-right"></i>
             </li>
-            <li class="theme" v-for="theme in themeList" :key="theme.id">{{theme.name}} {{theme.id}} <i class="iconfont icon-add1"></i></li>
+            <li class="theme" v-for="theme in themeList" :key="theme.id" @click="goThemePage(theme.id)">{{theme.name}} {{theme.id}} <i class="iconfont icon-add1"></i></li>
           </ul>
         </div>
       </div>
@@ -88,6 +88,10 @@ export default {
         this.showbar = false
         this.showmask = false
       }
+    },
+    goThemePage (themeId) {
+      this.toggleBar(false)
+      console.log(themeId)
     },
     getThemeList () {
       Axios.getThemes()
@@ -153,7 +157,7 @@ export default {
     width 5.5rem
     height 100%
     display flex
-    padding .3rem
+    padding .35rem
     flex-direction column
     justify-content flex-start
     background-color #232a30
@@ -207,15 +211,15 @@ export default {
             display flex
             justify-content space-between
             align-items center
-            height 1.18rem
-            font-size 18px
+            height 1.16rem
+            font-size 16px
             .iconfont
               font-size 22px
           .home
             display flex
             align-items center
             .iconfont
-              font-size 30px
+              font-size 28px
               margin-right .3rem
 
 
