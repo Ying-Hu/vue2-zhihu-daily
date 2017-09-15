@@ -33,7 +33,7 @@
       </div>
       <!-- 首页及主题列表 -->
       <div class="list-main">
-        <div class="listwrapper">
+        <div class="listwrapper" ref="listwrapper">
           <ul class="theme-content">
             <li>
               <span class="home">
@@ -59,7 +59,7 @@
 
 <script>
 import Loading from 'components/loading/loading'
-// import BScroll from 'better-scroll'
+import BScroll from 'better-scroll'
 import Axios from 'api/index'
 
 const COMPONENT_NAMER = 'app'
@@ -68,7 +68,8 @@ export default {
   name: COMPONENT_NAMER,
   data () {
     return {
-      themeList: []
+      themeList: [],
+      click: true
     }
   },
   components: {
@@ -80,10 +81,19 @@ export default {
       .then(res => {
         this.themeList = res.data.others
         console.log(this.themeList)
+        this.$nextTick(() => {
+          this._initScroll()
+        })
       })
       .catch(err => {
         console.log(err)
       })
+    },
+    _initScroll () {
+      let options = {
+        click: this.click
+      }
+      this.listScroll = new BScroll(this.$refs.listwrapper, options)
     }
   },
   mounted () {

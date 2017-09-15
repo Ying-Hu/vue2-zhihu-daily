@@ -2,6 +2,7 @@
   <div class="wrapper" ref="wrapper">
     <div class="content">
       <div class="demo" v-for="(item,index) in list">{{index}}</div>
+      <div class="box"></div>
     </div>
   </div>
 </template>
@@ -42,5 +43,12 @@ export default {
       height 200px
       background red
       margin 10px
+    .box
+      position absolute
+      right 0
+      top 70px
+      width 180px
+      height 180px
+      background-image linear-gradient(180deg, #000, #fff)
 </style>
 
