@@ -3,6 +3,7 @@
     <!-- 头部 -->
     <header class="header">
       <i v-if="true" class="iconfont icon-caidan" @click="toggleBar(true)"></i>
+      <i class="iconfont icon-left"></i>
       <div class="title-content">
         <!-- <Loading></Loading> -->
         <h1 class="theme-title">Today Hot News</h1>
@@ -62,7 +63,7 @@
 <script>
 import Loading from 'components/loading/loading'
 import BScroll from 'better-scroll'
-import Axios from 'api/index'
+import Axios from 'api'
 
 const COMPONENT_NAMER = 'app'
 
@@ -92,6 +93,13 @@ export default {
     goThemePage (themeId) {
       this.toggleBar(false)
       console.log(themeId)
+      let path = themeId === 1 ? 'home' : 'theme'
+      this.$router.push({
+        path: path,
+        query: {
+          id: themeId || ''
+        }
+      })
     },
     getThemeList () {
       Axios.getThemes()
@@ -162,7 +170,7 @@ export default {
     justify-content flex-start
     background-color #232a30
     color #8b9094
-    opacity .88
+    opacity .9
     transition: all .3s ease
     .user-info
       width 100%
