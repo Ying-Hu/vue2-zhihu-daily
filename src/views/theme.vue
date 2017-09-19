@@ -8,22 +8,22 @@
             :startY="parseInt(startY)"
             @pullingUp="onPullingUp">
       <!-- 主题 banner -->
-      <img class="theme-img" :src="list[0].image">
+      <img class="theme-img" :src="themelist[0].image">
       <!-- 主编列表 -->
       <div class="editoers">
         <span class="title">主编</span>
         <ul class="editor-list">
-          <li class="editor-portrait" v-for="editor in list[0].editors" :key="editor.id">
+          <li class="editor-portrait" v-for="editor in themelist[0].editors" :key="editor.id">
             <img :src="editor.avatar" class="portrait">
           </li>
         </ul>
       </div>
       <!-- 主题列表 -->
-      <div class="list-wrap" v-for="list in list" v-if="list.legnth">
-        <div class="news-wrapper" v-for="(news, index) in list.stories" :key="index" @click="clickItem($event, news)">
+      <div class="list-wrap" v-for="list in themelist">
+        <div class="news-wrapper" v-for="news in list.stories" @click="clickItem($event, news)">
           <div class="news-list">
             <p class="news-title">{{ news.title }}</p>
-            <img class="news-img" v-if="news.images.legnth" :src="news.images[0]"></img>
+            <img class="news-img" v-show="news.images" :src="news.images"></img>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@ export default {
   name: COMPONENT_NAMER,
   data () {
     return {
-      list: [],
+      themelist: [],
       scrollbar: true,
       scrollbarFade: true,
       pullUpLoad: true,
@@ -55,13 +55,19 @@ export default {
   components: {
     Scroll
   },
+  created () {
+    this.getData()
+  },
   methods: {
     getData () {
       let id = this.$route.query.id
       Axios.getThemesById(id)
       .then((res) => {
-        this.list.push(res.data)
-        console.log('list', this.list)
+        console.log('res.data', res.data)
+        this.themelist.push(res.data)
+        console.log('themelist')
+        console.log(this.themelist)
+        console.log('themelist.stories', this.themelist[0].stories)
       })
       .catch((err) => {
         console.log(err)
@@ -88,11 +94,9 @@ export default {
       return this.pullUpLoad ? {threshold: parseInt(this.pullUpLoadThreshold), txt: {more: this.pullUpLoadMoreTxt, noMore: this.pullUpLoadNoMoreTxt}} : false
     }
   },
-  created () {
-    this.getData()
-  },
   watch: {
     '$route' () {
+      this.themelist = []
       this.getData()
     }
   }

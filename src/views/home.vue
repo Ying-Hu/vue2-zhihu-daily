@@ -54,13 +54,12 @@ export default {
   created () {
     this.getList()
   },
-  mounted () {
-  },
   methods: {
     getList () {
       // 获取热门消息
       Axios.getNews()
       .then(res => {
+        console.log('res.data', res.data)
         this.list.push(res.data)
         this.topStories = res.data.top_stories
         this.date = res.data.date

@@ -105,7 +105,7 @@ export default {
       Axios.getThemes()
       .then(res => {
         this.themeList = res.data.others
-        console.log(this.themeList)
+        // console.log('主题列表', this.themeList)
         this.$nextTick(() => {
           this._initScroll()
         })
