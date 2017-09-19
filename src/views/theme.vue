@@ -3,17 +3,15 @@
     <Scroll ref="scroll"
             :data = "[]"
             :click = "click"
-            :scrollbar="false"
-            :pullUpLoad="pullUpLoadObj"
-            :startY="parseInt(startY)"
-            @pullingUp="onPullingUp">
+            :scrollbar="scrollbarObj"
+            :startY="parseInt(startY)">
       <!-- 主题 banner -->
-      <img class="theme-img" :src="themelist[0].image">
+      <img class="theme-img" :src="themeImg">
       <!-- 主编列表 -->
       <div class="editoers">
         <span class="title">主编</span>
         <ul class="editor-list">
-          <li class="editor-portrait" v-for="editor in themelist[0].editors" :key="editor.id">
+          <li class="editor-portrait" v-for="editor in editors" :key="editor.id">
             <img :src="editor.avatar" class="portrait">
           </li>
         </ul>
@@ -42,12 +40,10 @@ export default {
   data () {
     return {
       themelist: [],
+      themeImg: '',
+      editors: [],
       scrollbar: true,
       scrollbarFade: true,
-      pullUpLoad: true,
-      pullUpLoadThreshold: 50,
-      pullUpLoadMoreTxt: ' ',
-      pullUpLoadNoMoreTxt: '没有更多数据了',
       startY: 0,
       click: true
     }
@@ -63,24 +59,17 @@ export default {
       let id = this.$route.query.id
       Axios.getThemesById(id)
       .then((res) => {
-        console.log('res.data', res.data)
+        // console.log('themepage.data', res.data)
         this.themelist.push(res.data)
-        console.log('themelist')
-        console.log(this.themelist)
-        console.log('themelist.stories', this.themelist[0].stories)
+        this.themeImg = res.data.image
+        this.editors = res.data.editors
+        // console.log('themelist')
+        // console.log(this.themelist)
+        // console.log('themelist[0]', this.themelist[0])
       })
       .catch((err) => {
         console.log(err)
       })
-    },
-    onPullingUp () {
-      // let _this = this
-      // 更新数据
-      setTimeout(() => {
-        // 获取新数据
-        console.log('request new data ...')
-        // _this.getListByDate(_this.date)
-      }, 500)
     },
     clickItem (event, item) {
       console.log('click item', event, item)
@@ -89,9 +78,6 @@ export default {
   computed: {
     scrollbarObj: function () {
       return this.scrollbar ? {fade: this.scrollbarFade} : false
-    },
-    pullUpLoadObj: function () {
-      return this.pullUpLoad ? {threshold: parseInt(this.pullUpLoadThreshold), txt: {more: this.pullUpLoadMoreTxt, noMore: this.pullUpLoadNoMoreTxt}} : false
     }
   },
   watch: {

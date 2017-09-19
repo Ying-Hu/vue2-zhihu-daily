@@ -4,7 +4,7 @@
       <Scroll ref="scroll"
               :data = "[]"
               :click = "click"
-              :scrollbar="false"
+              :scrollbar="scrollbarObj"
               :pullUpLoad="pullUpLoadObj"
               :startY="parseInt(startY)"
               @pullingUp="onPullingUp">
