@@ -116,22 +116,25 @@ export default {
 <style lang="stylus">
   .home-wrapper
     height 100%
+    font-size 0
 // swiper style
   .swiper-container
     width 100%
     .swiper-slide
       width 100%
       height 5.6rem
+      overflow hidden
       .swiper-img
-        min-width 375px
-        max-height 140%
+        width 100%
+        transform translateY(-14%)
       .swiper-title
         position absolute
         color #fff
-        padding 0.5rem 0.1rem
+        padding 0 0.3rem
         font-size 18px
-        left 3%
-        bottom 6%
+        line-height 20px
+        left 0
+        bottom .6rem
   .swiper-pagination .swiper-pagination-bullet-active
     background #fff
   .swiper-pagination .swiper-pagination-bullet

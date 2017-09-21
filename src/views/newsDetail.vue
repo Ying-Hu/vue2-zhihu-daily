@@ -43,6 +43,7 @@ export default {
         console.log(err)
       })
     },
+    // 一开始想通过 link 标签引入样式，但是对侧边栏有影响，考虑到这是通用样式，于是干脆直接通过直接 import css 解决
     addLinkTag (cssurl) {
       let head = document.getElementsByTagName('head')[0]
       let link = document.querySelector('link[id="newscss"]')

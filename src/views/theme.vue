@@ -6,7 +6,9 @@
             :scrollbar="scrollbarObj"
             :startY="parseInt(startY)">
       <!-- 主题 banner -->
-      <img class="theme-img" :src="themeImg">
+      <div class="banner">
+        <img class="theme-img" :src="themeImg">
+      </div>
       <!-- 主编列表 -->
       <div class="editoers">
         <span class="title">主编</span>
@@ -100,6 +102,14 @@ export default {
   .theme
     width 100%
     height 100%
+    font-size 0
+    .banner
+      width 100%
+      height 224px
+      overflow hidden
+      .theme-img
+        height 100%
+        transform translateX(-22%)
     .editoers
       display flex
       justify-content flex-start
@@ -108,6 +118,8 @@ export default {
       width 100%
       padding 0 .2rem
       border-bottom 1px solid #ddd
+      .title
+          font-size 14px
       .editor-list
         display flex
         justify-content flex-start
