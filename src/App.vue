@@ -36,14 +36,14 @@
       <div class="list-main">
         <div class="listwrapper" ref="listwrapper">
           <ul class="theme-content">
-            <li @click="goThemePage(1)">
+            <li @click="toThemePage(1)">
               <span class="home">
                 <i class="iconfont icon-home"></i>
                 <span>Home</span>
               </span>
               <i class="iconfont icon-right"></i>
             </li>
-            <li class="theme" v-for="theme in themeList" :key="theme.id" @click="goThemePage(theme.id)">{{theme.name}} {{theme.id}} <i class="iconfont icon-add1"></i></li>
+            <li class="theme" v-for="theme in themeList" :key="theme.id" @click="toThemePage(theme.id)">{{theme.name}}<i class="iconfont icon-add1"></i></li>
           </ul>
         </div>
       </div>
@@ -90,7 +90,7 @@ export default {
         this.showmask = false
       }
     },
-    goThemePage (themeId) {
+    toThemePage (themeId) {
       this.toggleBar(false)
       console.log(themeId)
       let path = themeId === 1 ? 'home' : 'theme'

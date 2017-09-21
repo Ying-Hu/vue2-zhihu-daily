@@ -13,7 +13,7 @@
       <!-- 新闻列表 -->
         <div class="list-wrap" v-for="list in list">
           <div class="news-time">{{list.date | dateFormat}}</div>
-          <div class="news-wrapper" v-for="(news, index) in list.stories" :key="index" @click="clickItem($event, news)">
+          <div class="news-wrapper" v-for="(news, index) in list.stories" :key="index" @click="toNewsDetail(news)">
             <div class="news-list">
               <p class="news-title">{{ news.title }}</p>
               <img class="news-img" :src="news.images[0]"></img>
@@ -91,8 +91,15 @@ export default {
         _this.getListByDate(_this.date)
       }, 500)
     },
-    clickItem (event, item) {
-      console.log('click item', event, item)
+    toNewsDetail (news) {
+      // console.log('news', news)
+      let newsId = news.id
+      this.$router.push({
+        path: 'newsDetail',
+        query: {
+          id: newsId
+        }
+      })
     }
   },
   computed: {

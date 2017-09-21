@@ -18,7 +18,7 @@
       </div>
       <!-- 主题列表 -->
       <div class="list-wrap" v-for="list in themelist">
-        <div class="news-wrapper" v-for="news in list.stories" @click="clickItem($event, news)">
+        <div class="news-wrapper" v-for="news in list.stories" @click="toNewsDetail(news)">
           <div class="news-list">
             <p class="news-title">{{ news.title }}</p>
             <img class="news-img" v-show="news.images" :src="news.images"></img>
@@ -71,8 +71,15 @@ export default {
         console.log(err)
       })
     },
-    clickItem (event, item) {
-      console.log('click item', event, item)
+    toNewsDetail (news) {
+      console.log('click news', news)
+      let newsId = news.id
+      this.$router.push({
+        path: 'newsDetail',
+        query: {
+          id: newsId
+        }
+      })
     }
   },
   computed: {
