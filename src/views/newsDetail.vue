@@ -1,19 +1,27 @@
 <template>
   <div class="news-wrapper">
-    <div class="news-detail" v-if="news">
-      <div class="news-head">
-        <img class="news-pic" :src="news.image">
-        <span class="image-source">图片：{{news.image_source}}</span>
-        <p class="news-title">{{news.title}}</p>
+    <Scroll   ref="scroll"
+              :data = "[]"
+              :click = "click"
+              :scrollbar="scrollbarObj"
+              :pullUpLoad="pullUpLoadObj"
+              :startY="parseInt(startY)"
+              @pullingUp="onPullingUp">
+      <div class="news-detail" v-if="news">
+        <div class="news-head">
+          <img class="news-pic" :src="news.image">
+          <span class="image-source">图片：{{news.image_source}}</span>
+          <p class="news-title">{{news.title}}</p>
+        </div>
+        <div class="news-body" v-html="news.body"></div>
       </div>
-      <div class="news-body" v-html="news.body"></div>
-    </div>
+    </Scroll>
   </div>
 </template>
 
 <script>
 import Axios from 'api'
-// import Scroll from 'components/scroll/scroll'
+import Scroll from 'components/scroll/scroll'
 
 const COMPONENT_NAMER = 'newsDetail'
 
@@ -21,8 +29,19 @@ export default {
   name: COMPONENT_NAMER,
   data () {
     return {
-      news: null
+      news: null,
+      scrollbar: true,
+      scrollbarFade: true,
+      pullUpLoad: true,
+      pullUpLoadThreshold: 50,
+      pullUpLoadMoreTxt: ' ',
+      pullUpLoadNoMoreTxt: '没有更多数据了',
+      startY: 0,
+      click: true
     }
+  },
+  components: {
+    Scroll
   },
   created () {
     this.getNews()
@@ -57,6 +76,24 @@ export default {
       } else {
         console.log('已经存在')
       }
+    },
+    // 加载下一条新闻 待做 20170922 00：56
+    onPullingUp () {
+      // let _this = this
+      // 更新数据
+      setTimeout(() => {
+        // 获取新数据
+        console.log('request new data ...')
+        // _this.getListByDate(_this.date)
+      }, 500)
+    }
+  },
+  computed: {
+    scrollbarObj: function () {
+      return this.scrollbar ? {fade: this.scrollbarFade} : false
+    },
+    pullUpLoadObj: function () {
+      return this.pullUpLoad ? {threshold: parseInt(this.pullUpLoadThreshold), txt: {more: this.pullUpLoadMoreTxt, noMore: this.pullUpLoadNoMoreTxt}} : false
     }
   }
 }

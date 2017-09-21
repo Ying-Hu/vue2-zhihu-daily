@@ -27,7 +27,6 @@
 
 <script>
 import vswiper from 'components/swiper/swiper'
-// import BScroll from 'better-scroll'
 import Scroll from 'components/scroll/scroll'
 import Axios from 'api'
 export default {
