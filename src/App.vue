@@ -212,6 +212,7 @@ export default {
         overflow hidden
         .theme-content
           width 100%
+          padding 0
           display flex
           flex-direction column
           justify-content flex-start
