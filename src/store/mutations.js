@@ -1,10 +1,10 @@
 import * as types from './types'
 const mutations = {
-  [types.CHANGEFLAGFALSE]: state => {
-    return (state.backFlag = false)
+  [types.CHANGEBACKFLAG]: (state, flag) => {
+    return (state.backFlag = flag)
   },
-  [types.CHANGEFLAGTRUE]: state => {
-    return (state.backFlag = true)
+  [types.CHANGEADDICON]: (state, flag) => {
+    return (state.addIcon = flag)
   }
 }
 

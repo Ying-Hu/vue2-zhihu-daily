@@ -1,6 +1,7 @@
 const state = {
   num: 1,
-  backFlag: true,
+  backFlag: false,
+  addIcon: false,
   circleFlag: false,
   theme: {},
   article: {},

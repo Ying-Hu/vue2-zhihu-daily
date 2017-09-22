@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'changeFlageFalse'
+      'changeBackFlag'
     ]),
     getList () {
       // 获取热门消息
@@ -99,7 +99,7 @@ export default {
     },
     toNewsDetail (news) {
       // console.log('news', news)
-      this.changeFlageFalse()
+      this.changeBackFlag(true)
       let newsId = news.id
       this.$router.push({
         path: 'newsDetail',
@@ -178,10 +178,10 @@ export default {
           line-height 20px
           color #2f2f2f
           margin-right .2rem
-          height 50px
+          height 60px
         .news-img
           flex 0 0 60px
           width 60px
-          height 50px
+          height 60px
           align-self center
 </style>

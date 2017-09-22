@@ -2,13 +2,13 @@
   <div id="app">
     <!-- 头部 -->
     <header class="header">
-      <i v-if="backFlag" class="iconfont icon-caidan" @click="toggleBar(true)"></i>
-      <i v-else class="iconfont icon-left" @click="goBack()"></i>
+      <i v-if="backFlag" class="iconfont icon-left" @click="goBack()"></i>
+      <i v-else class="iconfont icon-caidan" @click="toggleBar(true)"></i>
       <div class="title-content">
         <!-- <Loading></Loading> -->
         <h1 class="theme-title">Today Hot News</h1>
       </div>
-      <i class="iconfont icon-add"></i>
+      <i class="iconfont icon-add" v-show="addIcon"></i>
     </header>
     <!-- 主题选择 -->
     <aside class="aside" :class="{showbar: showbar}">
@@ -36,7 +36,7 @@
       <div class="list-main">
         <div class="listwrapper" ref="listwrapper">
           <ul class="theme-content">
-            <li @click="toThemePage(1)">
+            <li @click="toHome()">
               <span class="home">
                 <i class="iconfont icon-home"></i>
                 <span>Home</span>
@@ -62,7 +62,6 @@
 
 <script>
 import Loading from 'components/loading/loading'
-import BScroll from 'better-scroll'
 import Axios from 'api'
 import {mapGetters, mapActions} from 'vuex'
 
@@ -83,12 +82,14 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'backFlag'
+      'backFlag',
+      'addIcon'
     ])
   },
   methods: {
     ...mapActions([
-      'changeFlageTrue'
+      'changeBackFlag',
+      'changeAddIcon'
     ]),
     toggleBar (flag) {
       if (flag) {
@@ -99,10 +100,18 @@ export default {
         this.showmask = false
       }
     },
+    toHome () {
+      this.toggleBar(false)
+      this.changeAddIcon(false)
+      this.$router.push({
+        path: '/'
+      })
+    },
     toThemePage (themeId) {
       this.toggleBar(false)
+      this.changeAddIcon(true)
       // console.log(themeId)
-      let path = themeId === 1 ? 'home' : 'theme'
+      let path = 'theme'
       this.$router.push({
         path: path,
         query: {
@@ -115,24 +124,16 @@ export default {
       .then(res => {
         this.themeList = res.data.others
         // console.log('主题列表', this.themeList)
-        this.$nextTick(() => {
-          this._initScroll()
-        })
+        this.$nextTick(() => {})
       })
       .catch(err => {
         console.log(err)
       })
     },
-    _initScroll () {
-      let options = {
-        click: this.click
-      }
-      this.listScroll = new BScroll(this.$refs.listwrapper, options)
-    },
     goBack () {
       // console.log('router.go', this.$router.go)
       this.$router.go(-1)
-      this.changeFlageTrue()
+      this.changeBackFlag(false)
     }
   },
   mounted () {
@@ -153,12 +154,12 @@ export default {
     height 1.5rem
     padding 0 0.2rem
     display flex
-    justify-content space-between
     align-items center
     z-index 9
     background-image linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.51) 95%)
     .title-content
       display flex
+      flex 1
       justify-content center
       align-items center
     .iconfont

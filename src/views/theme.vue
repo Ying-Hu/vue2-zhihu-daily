@@ -34,6 +34,7 @@
 <script>
 import Axios from 'api'
 import Scroll from 'components/scroll/scroll'
+import {mapActions} from 'vuex'
 
 const COMPONENT_NAMER = 'theme'
 
@@ -57,6 +58,9 @@ export default {
     this.getData()
   },
   methods: {
+    ...mapActions([
+      'changeBackFlag'
+    ]),
     getData () {
       let id = this.$route.query.id
       Axios.getThemesById(id)
@@ -74,6 +78,7 @@ export default {
       })
     },
     toNewsDetail (news) {
+      this.changeBackFlag(true)
       // console.log('click news', news)
       let newsId = news.id
       this.$router.push({
@@ -98,7 +103,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
   .theme
     width 100%
     height 100%
@@ -120,6 +125,7 @@ export default {
       border-bottom 1px solid #ddd
       .title
           font-size 14px
+          // margin-right -20px
       .editor-list
         display flex
         justify-content flex-start

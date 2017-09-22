@@ -1,10 +1,10 @@
 import * as types from './types'
 const actions = {
-  changeFlageFalse: ({commit}) => {
-    commit(types.CHANGEFLAGFALSE)
+  changeBackFlag: ({commit}, flag) => {
+    commit(types.CHANGEBACKFLAG, flag)
   },
-  changeFlageTrue: ({commit}) => {
-    commit(types.CHANGEFLAGTRUE)
+  changeAddIcon: ({commit}, flag) => {
+    commit(types.CHANGEADDICON, flag)
   }
 }
 

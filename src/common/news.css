@@ -128,13 +128,12 @@ blockquote {
   margin: .5em 0;
   padding: 0 0 0 1em;
 }
-ul,
-ol {
+.news-body ul,
+.news-body ol {
   padding-left: 20px;
 }
 .main-wrap {
-  max-width: 100%;
-  min-width: 300px;
+  width: 100%;
   margin: 0 auto;
 }
 .content-wrap {

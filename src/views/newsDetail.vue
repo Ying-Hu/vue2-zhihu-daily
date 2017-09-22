@@ -8,7 +8,7 @@
               :startY="parseInt(startY)"
               @pullingUp="onPullingUp">
       <div class="news-detail" v-if="news">
-        <div class="news-head">
+        <div class="news-head" v-show="news.image">
           <img class="news-pic" :src="news.image">
           <span class="image-source">图片：{{news.image_source}}</span>
           <p class="news-title">{{news.title}}</p>
@@ -121,7 +121,7 @@ export default {
           position absolute
           width 100%
           padding 0 .4rem
-          bottom .3rem
+          bottom .6rem
           text-align left
           font-size 16px
           line-height 20px
