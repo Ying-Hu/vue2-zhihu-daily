@@ -6,7 +6,7 @@
       <i v-else class="iconfont icon-caidan" @click="toggleBar(true)"></i>
       <div class="title-content">
         <!-- <Loading></Loading> -->
-        <h1 class="theme-title">Today Hot News</h1>
+        <h1 class="theme-title" :title="title">{{title}}</h1>
       </div>
       <i class="iconfont icon-add" v-show="addIcon"></i>
     </header>
@@ -43,7 +43,7 @@
               </span>
               <i class="iconfont icon-right"></i>
             </li>
-            <li class="theme" v-for="theme in themeList" :key="theme.id" @click="toThemePage(theme.id)">{{theme.name}}<i class="iconfont icon-add1"></i></li>
+            <li class="theme" v-for="theme in themeList" :key="theme.id" @click="toThemePage(theme.id)">{{theme.name}}{{theme.id}}<i class="iconfont icon-add1"></i></li>
           </ul>
         </div>
       </div>
@@ -62,6 +62,7 @@
 
 <script>
 import Loading from 'components/loading/loading'
+import BScroll from 'better-scroll'
 import Axios from 'api'
 import {mapGetters, mapActions} from 'vuex'
 
@@ -71,6 +72,7 @@ export default {
   name: COMPONENT_NAMER,
   data () {
     return {
+      headTitle: 'Today Hot News',
       themeList: [],
       click: true,
       showmask: false,
@@ -84,7 +86,39 @@ export default {
     ...mapGetters([
       'backFlag',
       'addIcon'
-    ])
+    ]),
+    title () {
+      let themeId = this.$route.query.id ? this.$route.query.id : ''
+      console.log('themeId', themeId)
+      switch (themeId) {
+        case 13:
+          return '日常心理学'
+        case 12:
+          return '用户推荐日报'
+        case 3:
+          return '电影日报'
+        case 11:
+          return '不许无聊'
+        case 4:
+          return '设计日报'
+        case 5:
+          return '大公司日报'
+        case 6:
+          return '财经日报'
+        case 10:
+          return '互联网安全'
+        case 2:
+          return '开始游戏'
+        case 7:
+          return '音乐日报'
+        case 9:
+          return '动漫日报'
+        case 8:
+          return '体育日报'
+        default:
+          return 'Today Hot News'
+      }
+    }
   },
   methods: {
     ...mapActions([
@@ -124,11 +158,19 @@ export default {
       .then(res => {
         this.themeList = res.data.others
         // console.log('主题列表', this.themeList)
-        this.$nextTick(() => {})
+        this.$nextTick(() => {
+          this._initScroll()
+        })
       })
       .catch(err => {
         console.log(err)
       })
+    },
+    _initScroll () {
+      let options = {
+        click: this.click
+      }
+      this.listScroll = new BScroll(this.$refs.listwrapper, options)
     },
     goBack () {
       // console.log('router.go', this.$router.go)
@@ -136,7 +178,7 @@ export default {
       this.changeBackFlag(false)
     }
   },
-  mounted () {
+  created () {
     this.getThemeList()
   }
 }
@@ -151,7 +193,7 @@ export default {
     top 0
     left 0
     width 100%
-    height 1.5rem
+    height 1.4rem
     padding 0 0.2rem
     display flex
     align-items center
@@ -162,15 +204,15 @@ export default {
       flex 1
       justify-content center
       align-items center
+      .theme-title
+        flex 1
+        margin-left .1rem
+        text-align center
+        color #fff
+        font-size 0.4rem
     .iconfont
       color #fff
       font-size 0.65rem
-    .theme-title
-      flex 1
-      margin-left .1rem
-      text-align center
-      color #fff
-      font-size 0.4rem
   
   .aside
     position absolute
@@ -273,4 +315,3 @@ export default {
     background-color #232a30
     opacity .7
 </style>
-
