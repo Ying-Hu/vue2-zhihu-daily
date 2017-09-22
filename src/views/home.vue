@@ -11,7 +11,7 @@
       <!-- 轮播 -->
       <vswiper :topStories="topStories"></vswiper>
       <!-- 新闻列表 -->
-        <div class="list-wrap" v-for="list in list">
+        <div class="list-wrap" v-for="list in list" :key="list.id">
           <div class="news-time">{{list.date | dateFormat}}</div>
           <div class="news-wrapper" v-for="(news, index) in list.stories" :key="index" @click="toNewsDetail(news)">
             <div class="news-list">
@@ -29,8 +29,12 @@
 import vswiper from 'components/swiper/swiper'
 import Scroll from 'components/scroll/scroll'
 import Axios from 'api'
+import {mapActions} from 'vuex'
+
+const COMPONENT_NAMER = 'home'
+
 export default {
-  name: 'home',
+  name: COMPONENT_NAMER,
   data () {
     return {
       list: [],
@@ -54,16 +58,19 @@ export default {
     this.getList()
   },
   methods: {
+    ...mapActions([
+      'changeFlageFalse'
+    ]),
     getList () {
       // 获取热门消息
       Axios.getNews()
       .then(res => {
-        console.log('res.data', res.data)
+        // console.log('res.data', res.data)
         this.list.push(res.data)
         this.topStories = res.data.top_stories
         this.date = res.data.date
         // console.log(this.date)
-        console.log('list', this.list)
+        // console.log('list', this.list)
       })
       .catch(err => {
         console.log(err)
@@ -73,7 +80,7 @@ export default {
       // 获取过往消息
       Axios.getNewsByDate(date)
       .then(res => {
-        console.log('getNewsByDate', res.data)
+        // console.log('getNewsByDate', res.data)
         this.date = res.data.date
         this.list.push(res.data)
       })
@@ -92,6 +99,7 @@ export default {
     },
     toNewsDetail (news) {
       // console.log('news', news)
+      this.changeFlageFalse()
       let newsId = news.id
       this.$router.push({
         path: 'newsDetail',

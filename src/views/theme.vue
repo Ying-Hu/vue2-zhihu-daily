@@ -19,8 +19,8 @@
         </ul>
       </div>
       <!-- 主题列表 -->
-      <div class="list-wrap" v-for="list in themelist">
-        <div class="news-wrapper" v-for="news in list.stories" @click="toNewsDetail(news)">
+      <div class="list-wrap" v-for="list in themelist" :key="list.id">
+        <div class="news-wrapper" v-for="news in list.stories" @click="toNewsDetail(news)" :key="news.id">
           <div class="news-list">
             <p class="news-title">{{ news.title }}</p>
             <img class="news-img" v-show="news.images" :src="news.images"></img>
@@ -74,7 +74,7 @@ export default {
       })
     },
     toNewsDetail (news) {
-      console.log('click news', news)
+      // console.log('click news', news)
       let newsId = news.id
       this.$router.push({
         path: 'newsDetail',

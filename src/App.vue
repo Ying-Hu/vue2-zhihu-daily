@@ -2,8 +2,8 @@
   <div id="app">
     <!-- 头部 -->
     <header class="header">
-      <i v-if="true" class="iconfont icon-caidan" @click="toggleBar(true)"></i>
-      <i class="iconfont icon-left"></i>
+      <i v-if="backFlag" class="iconfont icon-caidan" @click="toggleBar(true)"></i>
+      <i v-else class="iconfont icon-left" @click="goBack()"></i>
       <div class="title-content">
         <!-- <Loading></Loading> -->
         <h1 class="theme-title">Today Hot News</h1>
@@ -64,6 +64,7 @@
 import Loading from 'components/loading/loading'
 import BScroll from 'better-scroll'
 import Axios from 'api'
+import {mapGetters, mapActions} from 'vuex'
 
 const COMPONENT_NAMER = 'app'
 
@@ -80,7 +81,15 @@ export default {
   components: {
     Loading
   },
+  computed: {
+    ...mapGetters([
+      'backFlag'
+    ])
+  },
   methods: {
+    ...mapActions([
+      'changeFlageTrue'
+    ]),
     toggleBar (flag) {
       if (flag) {
         this.showbar = true
@@ -92,7 +101,7 @@ export default {
     },
     toThemePage (themeId) {
       this.toggleBar(false)
-      console.log(themeId)
+      // console.log(themeId)
       let path = themeId === 1 ? 'home' : 'theme'
       this.$router.push({
         path: path,
@@ -119,6 +128,11 @@ export default {
         click: this.click
       }
       this.listScroll = new BScroll(this.$refs.listwrapper, options)
+    },
+    goBack () {
+      // console.log('router.go', this.$router.go)
+      this.$router.go(-1)
+      this.changeFlageTrue()
     }
   },
   mounted () {

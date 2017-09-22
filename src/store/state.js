@@ -1,6 +1,6 @@
 const state = {
   num: 1,
-  drawer: false,
+  backFlag: true,
   circleFlag: false,
   theme: {},
   article: {},

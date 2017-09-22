@@ -831,8 +831,8 @@ hr {
   border-top-width: 0;
 }
 
-
-p {
+/* add scope */
+.main-wrap p {
   margin: 20px 0 !important;
 }
 

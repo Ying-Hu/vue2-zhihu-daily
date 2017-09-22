@@ -1,5 +1,5 @@
 const getters = {
-  msg: state => state.msg
+  backFlag: state => state.backFlag
 }
 
 export default getters
