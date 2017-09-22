@@ -16,6 +16,13 @@
         <div class="news-body" v-html="news.body"></div>
       </div>
     </Scroll>
+    <div class="news-footer">
+        <i class="iconfont icon-left"></i>
+        <i class="iconfont icon-down1"></i>
+        <i class="iconfont icon-good-copy"><sup class="good-number">666</sup></i>
+        <i class="iconfont icon-share"></i>
+        <i class="iconfont icon-message1"><sup class="conment-number">666</sup></i>
+    </div>
   </div>
 </template>
 
@@ -45,6 +52,7 @@ export default {
   },
   created () {
     this.getNews()
+    this.getNewsInfo()
   },
   methods: {
     getNews () {
@@ -53,10 +61,18 @@ export default {
       Axios.getNewsById(newsId)
       .then(res => {
         console.log('res.data', res.data)
-        const cssurl = res.data.css
         this.news = res.data
-        console.log('style', cssurl)
         // this.addLinkTag(cssurl)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    getNewsInfo () {
+      let newsId = this.$route.query.id
+      Axios.getNewsInfoById(newsId)
+      .then(res => {
+        console.log('getNewsInfoById', res.data)
       })
       .catch(err => {
         console.log(err)
@@ -109,6 +125,7 @@ export default {
       flex-direction column
       justify-content flex-start
       align-items center
+      padding-bottom 1rem
       .news-head
         width 100%
         height 5.5rem
@@ -131,4 +148,25 @@ export default {
           right .2rem
           bottom .2rem
           color #999
+    .news-footer
+      position fixed
+      left 0
+      bottom 0
+      width 100%
+      height 1rem
+      border-top 1px solid #dfdfdf
+      background #fff
+      display flex
+      justify-content space-between
+      align-items center
+      .iconfont
+        height 100%
+        font-size .6rem
+        color #959595
+        line-height 1rem
+        padding 0 .2rem
+        .good-number
+          font-size .3rem
+        .conment-number
+          font-size .3rem
 </style>

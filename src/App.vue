@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- 头部 -->
-    <header class="header">
+    <header class="header" v-show="headerFlag">
       <i v-if="backFlag" class="iconfont icon-left" @click="goBack()"></i>
       <i v-else class="iconfont icon-caidan" @click="toggleBar(true)"></i>
       <div class="title-content">
@@ -38,7 +38,7 @@
           <ul class="theme-content">
             <li @click="toHome()">
               <span class="home">
-                <i class="iconfont icon-home"></i>
+                <i class="iconfont icon-homel"></i>
                 <span>Home</span>
               </span>
               <i class="iconfont icon-right"></i>
@@ -49,7 +49,7 @@
       </div>
       <!-- aside footer -->
       <div class="aside-footer">
-        <span class="off-line"><i class="iconfont icon-download"></i>离线</span>
+        <span class="off-line"><i class="iconfont icon-downloadline"></i>离线</span>
         <span class="night-theme"><i class="iconfont icon-night"></i>夜间</span>
       </div>
     </aside>
@@ -73,6 +73,7 @@ export default {
   data () {
     return {
       headTitle: 'Today Hot News',
+      headerFlag: true,
       themeList: [],
       click: true,
       showmask: false,
@@ -89,7 +90,7 @@ export default {
     ]),
     title () {
       let themeId = this.$route.query.id ? this.$route.query.id : ''
-      console.log('themeId', themeId)
+      // console.log('themeId', themeId)
       switch (themeId) {
         case 13:
           return '日常心理学'
@@ -176,10 +177,22 @@ export default {
       // console.log('router.go', this.$router.go)
       this.$router.go(-1)
       this.changeBackFlag(false)
+    },
+    changeHeader () {
+      // console.log('watch route')
+      let routerName = this.$route.name
+      if (routerName === 'theme' || routerName === 'home') {
+        this.headerFlag = true
+      } else {
+        this.headerFlag = false
+      }
     }
   },
   created () {
     this.getThemeList()
+  },
+  watch: {
+    '$route': 'changeHeader'
   }
 }
 </script>
@@ -285,8 +298,8 @@ export default {
             display flex
             align-items center
             .iconfont
-              font-size 28px
-              margin-right .3rem
+              font-size 22px
+              margin-right .2rem
 
 
     .aside-footer

@@ -5,7 +5,7 @@ const api = {
   news: '/4/news/latest',
   newsbyid: '/4/news/',
   newsbydate: '/4/news/before/',
-  newsinfo: '/4/story-extra',
+  newsinfo: '/4/story-extra/',
   themes: '/4/themes',
   themebyid: '/4/theme/',
   sections: '/3/sections',

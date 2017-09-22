@@ -6,13 +6,7 @@ const Axios = {
   getNews: () => axios.get(API.NewsResource),
   getNewsById: (id) => axios.get(API.NewsIdResource + id),
   getNewsByDate: (date) => axios.get(API.NewsDateResource + date),
-  getNewsInfoById: (id) => {
-    axios.get(API.NewsInfoResource, {
-      params: {
-        id: id
-      }
-    })
-  },
+  getNewsInfoById: (id) => axios.get(API.NewsInfoResource + id),
   getThemes: () => axios.get(API.ThemesResource),
   getThemesById: (themeId) => axios.get(API.ThemesIdResource + themeId),
   getSections: () => axios.get(API.SectionsResource),
