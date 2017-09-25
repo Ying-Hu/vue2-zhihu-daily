@@ -1,7 +1,7 @@
 <template>
   <div class="news-comments">
-    <div class="comments-wrapper">
-      <header class="comment-header">3782738条评论</header>
+    <header class="comment-header">{{longCommentsList.length + shotCommentsList.length}} 条点评</header>
+    <div class="comments-wrapper" ref="commentref">
       <div class="comment-body">
         <div class="long-comment">
           <div class="long-holder" v-if="!longCommentsList.length">深度长评虚位以待</div>
@@ -21,26 +21,34 @@
         </div>
         <div class="short-comment">
           <div class="sc-header">{{shotCommentsList.length}}条短评
-            <i class="iconfont icon-down"></i>
-            <i class="iconfont icon-doubleup"></i>
+            <i class="iconfont icon-down" v-show="!scFlag" @click="changeScFlag"></i>
+            <i class="iconfont icon-doubleup" v-show="scFlag" @click="changeScFlag"></i>
           </div>
-          <div class="sc-list-wrapper" v-show="shotCommentsList.length">
-            <div class="sc-item" v-for="comment in shotCommentsList">
-              <img class="user-head" :src="comment.avatar">
+          <div class="sc-list-wrapper" v-show="scFlag">
+            <div class="sc-list" v-for="comment in shotCommentsList">
+              <div class="author-head">
+                <img :src="comment.avatar">
+              </div>
+              <div class="comment">
+                <h3 class="author-name"><span>{{comment.author}}</span><i class="iconfont icon-good-copy">{{comment.likes}}</i></h3>
+                <p class="comment-content">{{comment.content}}</p>
+                <span class="time">{{comment.time}}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
       <footer class="comment-footer">
         <i class="iconfont icon-left back-icon" @click="goBack"></i>
         <i class="iconfont icon-write write-comment" @click="goBack">写点评</i>
       </footer>
-    </div>
   </div>
 </template>
 
 <script>
 import Axios from 'api'
+import BScroll from 'better-scroll'
 
 const COMPONENT_NAME = 'comments'
 
@@ -48,8 +56,10 @@ export default {
   name: COMPONENT_NAME,
   data () {
     return {
+      scFlag: true,
       shotCommentsList: [],
-      longCommentsList: []
+      longCommentsList: [],
+      click: true
     }
   },
   created () {
@@ -81,7 +91,27 @@ export default {
     },
     goBack () {
       this.$router.go(-1)
+    },
+    changeScFlag () {
+      // 带测 20170926
+      // this.scFlag = !this.scFlag
+      // this.refresh()
+    },
+    _initScroll () {
+      let options = {
+        click: this.click
+      }
+      this.commentScroll = new BScroll(this.$refs.commentref, options)
+      console.log('inti this', this.commentScroll)
+    },
+    refresh () {
+      this.commentScroll && this.commentScroll.refresh()
     }
+  },
+  mounted () {
+    setTimeout(() => {
+      this._initScroll()
+    }, 900)
   }
 }
 </script>
@@ -92,13 +122,9 @@ export default {
     height 100%
     color #3c3c3c
     overflow hidden
-    .comments-wrapper
-      display flex
-      flex-direction column
-      align-items center
-      padding 1.4rem 0 1rem
-      .comment-header
+    .comment-header
         position fixed
+        z-index 100
         top 0
         width 100%
         height 1.4rem
@@ -108,11 +134,20 @@ export default {
         align-items center
         color #ffffff
         font-size .5rem
+    .comments-wrapper
+      position absolute
+      top 0
+      left 0
+      bottom 0
+      right 0
+      width 100%
+      height 100%
+      padding 1.4rem 0 1rem
       .comment-body
         width 100%
-        flex 1
         display flex
         flex-direction column
+        padding-bottom 2.5rem
         .long-comment
           display flex
           flex-direction column
@@ -178,34 +213,62 @@ export default {
             padding .4rem .2rem .2rem
             border-bottom 1px solid #dfdfdf
             font-size .4rem
-            .sc-item
+          .sc-list-wrapper
+            display flex
+            flex-direction column
+            .sc-list
               display flex
               width 100%
               padding .2rem
-              .user-head
-                width .1rem
-                height .1rem
-      .comment-footer
-        width 100%
+              .author-head
+                width 1.1rem
+                height 100%
+                padding .2rem
+                img
+                  width 100%
+                  border-radius 50%
+              .comment
+                padding .15rem .2rem 0 0
+                display flex
+                flex 1
+                flex-direction column
+                .author-name
+                  display flex
+                  width 100%
+                  justify-content space-between
+                  align-items center
+                  margin-bottom .1rem
+                  font-weight 700
+                  font-size 16px
+                  .iconfont
+                    color #dfdfdf
+                .comment-content
+                  font-size 14px
+                  line-height 18px
+                .time
+                  margin .2rem 0 .1rem 0
+    .comment-footer
+      width 100%
+      height 1rem
+      background #3c3c3c
+      position fixed
+      z-index 100
+      bottom 0
+      display flex
+      flex-direction row
+      justify-content flex-start
+      align-items center
+      .back-icon
         height 1rem
-        background #3c3c3c
-        position fixed
-        bottom 0
+        line-height 1rem
+        color #8c8c8c
+        font-size .5rem
+        padding 0 .2rem
+        border-right 1px solid #333
+      .write-comment
+        flex 1
         display flex
-        flex-direction row
-        justify-content flex-start
+        justify-content center
         align-items center
-        .back-icon
-          height 1rem
-          line-height 1rem
-          color #8c8c8c
-          font-size .5rem
-          padding 0 .2rem
-          border-right 1px solid #333
-        .write-comment
-          flex 1
-          display flex
-          justify-content center
-          align-items center
-          color #fff
+        color #fff
 </style>
