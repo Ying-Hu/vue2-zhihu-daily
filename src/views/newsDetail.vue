@@ -17,11 +17,11 @@
       </div>
     </Scroll>
     <div class="news-footer">
-        <i class="iconfont icon-left"></i>
+        <i class="iconfont icon-left" @click="goBack"></i>
         <i class="iconfont icon-down1"></i>
-        <i class="iconfont icon-good-copy"><sup class="good-number">666</sup></i>
+        <i class="iconfont icon-good-copy"><sup class="good-number">{{goodNumber}}</sup></i>
         <i class="iconfont icon-share"></i>
-        <i class="iconfont icon-message1"><sup class="conment-number">666</sup></i>
+        <i class="iconfont icon-message1" @click="toNewsComments"><sup class="conment-number">{{comments}}</sup></i>
     </div>
   </div>
 </template>
@@ -29,6 +29,7 @@
 <script>
 import Axios from 'api'
 import Scroll from 'components/scroll/scroll'
+import {mapActions} from 'vuex'
 
 const COMPONENT_NAMER = 'newsDetail'
 
@@ -37,6 +38,8 @@ export default {
   data () {
     return {
       news: null,
+      goodNumber: '',
+      comments: '',
       scrollbar: true,
       scrollbarFade: true,
       pullUpLoad: true,
@@ -55,6 +58,9 @@ export default {
     this.getNewsInfo()
   },
   methods: {
+    ...mapActions([
+      'changeBackFlag'
+    ]),
     getNews () {
       // console.log('router', this.$route.query.id)
       let newsId = this.$route.query.id
@@ -73,6 +79,8 @@ export default {
       Axios.getNewsInfoById(newsId)
       .then(res => {
         console.log('getNewsInfoById', res.data)
+        this.goodNumber = res.data.popularity
+        this.comments = res.data.comments
       })
       .catch(err => {
         console.log(err)
@@ -92,6 +100,20 @@ export default {
       } else {
         console.log('已经存在')
       }
+    },
+    goBack () {
+      this.$router.go(-1)
+      this.changeBackFlag(false)
+    },
+    toNewsComments () {
+      let newsId = this.$route.query.id
+      let path = 'newsComments'
+      this.$router.push({
+        path: path,
+        query: {
+          id: newsId
+        }
+      })
     },
     // 加载下一条新闻 待做 20170922 00：56
     onPullingUp () {
@@ -125,7 +147,7 @@ export default {
       flex-direction column
       justify-content flex-start
       align-items center
-      padding-bottom 1rem
+      padding-bottom .2rem
       .news-head
         width 100%
         height 5.5rem
@@ -167,6 +189,8 @@ export default {
         padding 0 .2rem
         .good-number
           font-size .3rem
+          color #22b4f1
         .conment-number
           font-size .3rem
+          color #22b4f1
 </style>

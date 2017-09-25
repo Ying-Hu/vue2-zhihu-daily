@@ -4,6 +4,7 @@ import Home from 'views/home'
 import Test from 'views/test'
 import Theme from 'views/theme'
 import newsDetail from 'views/newsDetail'
+import newsComments from 'views/newsComments'
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ export default new Router({
       path: '/test',
       name: 'Test',
       component: Test
+    },
+    {
+      path: '/newsComments',
+      name: 'newsComments',
+      component: newsComments
     },
     {
       path: '*',
