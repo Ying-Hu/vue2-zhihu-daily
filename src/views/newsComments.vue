@@ -14,7 +14,7 @@
               <div class="comment">
                 <h3 class="author-name"><span>{{comment.author}}</span><i class="iconfont icon-good-copy">{{comment.likes}}</i></h3>
                 <p class="comment-content">{{comment.content}}</p>
-                <span class="time">{{comment.time}}</span>
+                <span class="time">{{comment.time | commentDateFormat}}</span>
               </div>
             </div>
           </div>
@@ -32,7 +32,7 @@
               <div class="comment">
                 <h3 class="author-name"><span>{{comment.author}}</span><i class="iconfont icon-good-copy">{{comment.likes}}</i></h3>
                 <p class="comment-content">{{comment.content}}</p>
-                <span class="time">{{comment.time}}</span>
+                <span class="time">{{comment.time | commentDateFormat}}</span>
               </div>
             </div>
           </div>

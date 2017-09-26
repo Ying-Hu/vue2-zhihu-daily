@@ -70,7 +70,7 @@ export default {
         this.topStories = res.data.top_stories
         this.date = res.data.date
         // console.log(this.date)
-        // console.log('list', this.list)
+        console.log('list', this.list)
       })
       .catch(err => {
         console.log(err)

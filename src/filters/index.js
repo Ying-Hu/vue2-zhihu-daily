@@ -61,3 +61,14 @@ export const dateFormat = (dateString) => {
   let weekday = weekDayFormat(date.getDay());
   return mounth + '月' + day + '日 ' + '星期' + weekday;
 }
+
+/**
+ * @description 评论页日期格式化
+ * @author FerdYing
+ * @param {number} date {1506395861}
+ */
+
+export const commentDateFormat = (date) => {
+  let d = new Date(date * 1000)
+  return d.getMonth() + 1 + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes()
+}
