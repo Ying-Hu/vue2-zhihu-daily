@@ -43,7 +43,7 @@
               </span>
               <i class="iconfont icon-right"></i>
             </li>
-            <li class="theme" v-for="theme in themeList" :key="theme.id" @click="toThemePage(theme.id)">{{theme.name}}{{theme.id}}<i class="iconfont icon-add1"></i></li>
+            <li class="theme" v-for="theme in themeList" :key="theme.id" @click="toThemePage(theme.id)">{{theme.name}}<i class="iconfont icon-add1"></i></li>
           </ul>
         </div>
       </div>

@@ -24,7 +24,7 @@
             <i class="iconfont icon-down" v-show="!scFlag" @click="changeScFlag"></i>
             <i class="iconfont icon-doubleup" v-show="scFlag" @click="changeScFlag"></i>
           </div>
-          <div class="sc-list-wrapper" v-show="scFlag">
+          <div class="sc-list-wrapper" v-if="scFlag">
             <div class="sc-list" v-for="comment in shotCommentsList">
               <div class="author-head">
                 <img :src="comment.avatar">
@@ -56,7 +56,7 @@ export default {
   name: COMPONENT_NAME,
   data () {
     return {
-      scFlag: true,
+      scFlag: false,
       shotCommentsList: [],
       longCommentsList: [],
       click: true
@@ -73,6 +73,9 @@ export default {
       .then(res => {
         this.longCommentsList = res.data.comments
         console.log('long', this.longCommentsList)
+        this.$nextTick(() => {
+          this._initScroll()
+        })
       })
       .catch(err => {
         console.log(err)
@@ -93,25 +96,21 @@ export default {
       this.$router.go(-1)
     },
     changeScFlag () {
-      // 带测 20170926
-      // this.scFlag = !this.scFlag
-      // this.refresh()
+      // 待解决 20170926 1:00,  20170926 11：36 使用 nextTick
+      this.scFlag = !this.scFlag
+      this.$nextTick(() => {
+        this.refresh()
+      })
     },
     _initScroll () {
       let options = {
         click: this.click
       }
       this.commentScroll = new BScroll(this.$refs.commentref, options)
-      console.log('inti this', this.commentScroll)
     },
     refresh () {
       this.commentScroll && this.commentScroll.refresh()
     }
-  },
-  mounted () {
-    setTimeout(() => {
-      this._initScroll()
-    }, 900)
   }
 }
 </script>
