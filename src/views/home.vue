@@ -9,7 +9,7 @@
               :startY="parseInt(startY)"
               @pullingUp="onPullingUp">
       <!-- 轮播 -->
-      <vswiper :topStories="topStories" @toNewsDetail="toNewsDetail(newsId)"></vswiper>
+      <vswiper :topStories="topStories" @toDetail="toNewsDetail"></vswiper>
       <!-- 新闻列表 -->
         <div class="list-wrap" v-for="list in list" :key="list.id">
           <div class="news-time">{{list.date | dateFormat}}</div>
