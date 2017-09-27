@@ -45,7 +45,6 @@ export default {
   data () {
     return {
       themelist: [],
-      // themeStoriesS: [],
       themeImg: '',
       editors: [],
       scrollbar: true,
@@ -96,23 +95,31 @@ export default {
       })
     },
     onPullingUp () {
-      let _this = this
+      // let _this = this
       let themeId = this.$route.query.id
       let newsId = this.themelist.slice(-1)[0].stories.slice(-1)[0].id
-      console.log('themeId -- newsId', themeId, newsId)
+      // console.log('themeId -- newsId', themeId, newsId)
       // 更新数据
-      setTimeout(() => {
-        // 获取新数据
-        console.log('request new data ...')
-        Axios.getThemeNewsBeforeById(themeId, newsId)
-        .then(res => {
-          console.log('getThemeNewsBeforeById', res.data.stories)
-          _this.themelist.push(res.data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-      }, 500)
+      // setTimeout(() => {
+      //   // 获取新数据
+      //   console.log('request new data ...')
+      //   Axios.getThemeNewsBeforeById(themeId, newsId)
+      //   .then(res => {
+      //     // console.log('getThemeNewsBeforeById', res.data.stories)
+      //     _this.themelist.push(res.data)
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
+      // }, 500)
+      Axios.getThemeNewsBeforeById(themeId, newsId)
+      .then(res => {
+        // console.log('getThemeNewsBeforeById', res.data.stories)
+        this.themelist.push(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   },
   computed: {
