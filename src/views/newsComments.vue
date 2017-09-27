@@ -39,10 +39,10 @@
         </div>
       </div>
     </div>
-      <footer class="comment-footer">
-        <i class="iconfont icon-left back-icon" @click="goBack"></i>
-        <i class="iconfont icon-write write-comment" @click="goBack">写点评</i>
-      </footer>
+    <footer class="comment-footer">
+      <i class="iconfont icon-left back-icon" @click="goBack"></i>
+      <i class="iconfont icon-write write-comment" @click="goBack">写点评</i>
+    </footer>
   </div>
 </template>
 
@@ -96,7 +96,7 @@ export default {
       this.$router.go(-1)
     },
     changeScFlag () {
-      // 待解决 20170926 1:00,  20170926 11：36 使用 nextTick
+      // 解决 20170926 1:00, cover 20170926 11：36 使用 nextTick
       this.scFlag = !this.scFlag
       this.$nextTick(() => {
         this.refresh()
@@ -167,16 +167,17 @@ export default {
               justify-content space-between
               width 100%
               height 1rem
-              padding .4rem .2rem .2rem
+              padding .4rem .2rem .3rem
               border-bottom 1px solid #dfdfdf
               font-size .4rem
             .lc-list
               display flex
+              padding .2rem
               border-bottom 1px solid #dfdfdf
               .author-head
                 width 1.1rem
                 height 100%
-                padding .2rem
+                padding .15rem
                 img
                   width 100%
                   border-radius 50%
@@ -190,7 +191,7 @@ export default {
                   width 100%
                   justify-content space-between
                   align-items center
-                  margin-bottom .1rem
+                  margin-bottom .15rem
                   font-weight 700
                   font-size 16px
                   .iconfont
@@ -209,7 +210,7 @@ export default {
             justify-content space-between
             width 100%
             height 1rem
-            padding .4rem .2rem .2rem
+            padding .4rem .2rem .3rem
             border-bottom 1px solid #dfdfdf
             font-size .4rem
           .sc-list-wrapper
@@ -219,10 +220,11 @@ export default {
               display flex
               width 100%
               padding .2rem
+              border-bottom 1px solid #dfdfdf
               .author-head
                 width 1.1rem
                 height 100%
-                padding .2rem
+                padding .15rem
                 img
                   width 100%
                   border-radius 50%
