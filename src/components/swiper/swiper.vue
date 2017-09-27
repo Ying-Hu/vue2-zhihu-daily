@@ -2,7 +2,7 @@
   <swiper :options="swiperOption">
     <swiper-slide v-for="news in topStories" :key="news.id" >
       <img class="swiper-img" :src="news.image" @click="toDetail(news.id)">
-      <p class="swiper-title">{{news.title}} {{news.id}}</p>
+      <p class="swiper-title">{{news.title}}</p>
     </swiper-slide>
     <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
