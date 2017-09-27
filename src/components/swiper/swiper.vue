@@ -1,8 +1,8 @@
 <template>
   <swiper :options="swiperOption">
-    <swiper-slide v-for="item in topStories" :key="item.id">
-      <img class="swiper-img" :src="item.image">
-      <p class="swiper-title">{{item.title}}</p>
+    <swiper-slide v-for="news in topStories" :key="news.id" @click="test(news.id)">
+      <img class="swiper-img" :src="news.image">
+      <p class="swiper-title">{{news.title}}</p>
     </swiper-slide>
     <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
@@ -30,6 +30,15 @@
           resistanceRatio: 0,
           loop: true
         }
+      }
+    },
+    methods: {
+      toDetail (newsId) {
+        console.log('emit', newsId)
+        this.$emit('toNewsDetail', newsId)
+      },
+      test (a) {
+        console.log(' click test', a)
       }
     }
   }

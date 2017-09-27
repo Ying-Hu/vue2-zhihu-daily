@@ -233,6 +233,12 @@ blockquote {
 .content a:hover {
   text-decoration: underline;
 }
+
+/* 20170927 */
+.news-body {
+  width: 100%
+}
+
 .view-more {
   margin-bottom: 25px;
   text-align: center;

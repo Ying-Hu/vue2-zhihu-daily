@@ -9,11 +9,11 @@
               :startY="parseInt(startY)"
               @pullingUp="onPullingUp">
       <!-- 轮播 -->
-      <vswiper :topStories="topStories"></vswiper>
+      <vswiper :topStories="topStories" @toNewsDetail="toNewsDetail(newsId)"></vswiper>
       <!-- 新闻列表 -->
         <div class="list-wrap" v-for="list in list" :key="list.id">
           <div class="news-time">{{list.date | dateFormat}}</div>
-          <div class="news-wrapper" v-for="(news, index) in list.stories" :key="index" @click="toNewsDetail(news)">
+          <div class="news-wrapper" v-for="(news, index) in list.stories" :key="index" @click="toNewsDetail(news.id)">
             <div class="news-list">
               <p class="news-title">{{ news.title }}</p>
               <img class="news-img" :src="news.images[0]"></img>
@@ -97,10 +97,9 @@ export default {
         _this.getListByDate(_this.date)
       }, 500)
     },
-    toNewsDetail (news) {
-      // console.log('news', news)
+    toNewsDetail (newsId) {
+      // console.log('newsId', newsId)
       this.changeBackFlag(true)
-      let newsId = news.id
       this.$router.push({
         path: 'newsDetail',
         query: {

@@ -55,7 +55,7 @@
     </aside>
 
       <!-- 遮罩 -->
-      <div class="mask" v-show="showmask" @click="toggleBar(false)"></div>
+      <div class="mask" v-if="showmask" @click="toggleBar(false)"></div>
     <router-view></router-view>
   </div>
 </template>
