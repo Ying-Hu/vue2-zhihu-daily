@@ -162,7 +162,7 @@ export default {
           padding 0 .4rem
           bottom .6rem
           text-align left
-          font-size 16px
+          font-size .5rem
           line-height 20px
           color #fff
         .image-source

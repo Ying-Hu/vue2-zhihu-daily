@@ -11,6 +11,7 @@ const Axios = {
   getNewsShortCommentsById: (id) => axios.get(API.NewsCommentsResource + id + '/short-comments'),
   getThemes: () => axios.get(API.ThemesResource),
   getThemesById: (themeId) => axios.get(API.ThemesIdResource + themeId),
+  getThemeNewsBeforeById: (themeId, newsId) => axios.get(API.ThemesIdResource + themeId + '/before/' + newsId),
   getSections: () => axios.get(API.SectionsResource),
   getSectionsById: (sectionId) => {
     return axios.get(API.SectionIdResource, {

@@ -1,5 +1,6 @@
 <template>
-  <div ref="wrapper" class="list-wrapper">
+  <div ref="wrapper" class="lists-wrapper">
+
     <div>
       <slot>
       </slot>
@@ -17,6 +18,7 @@
         </div>
       </slot>
     </div>
+
     <slot name="pulldown"
           :pullDownRefresh="pullDownRefresh"
           :pullDownStyle="pullDownStyle"
@@ -127,9 +129,12 @@
       this.pullDownInitTop = -50
     },
     mounted () {
-      setTimeout(() => {
+      // setTimeout(() => {
+      //   this.initScroll()
+      // }, 40)
+      this.$nextTick(() => {
         this.initScroll()
-      }, 40)
+      })
     },
     methods: {
       initScroll () {
@@ -270,7 +275,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .list-wrapper
+  .lists-wrapper
     position: absolute
     left: 0
     top: 0
@@ -305,5 +310,5 @@
     display: flex
     justify-content center
     align-items center
-    padding: 16px 0
+    padding: 16px 0 32px
 </style>

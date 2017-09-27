@@ -1,10 +1,12 @@
 <template>
   <div class="theme">
     <Scroll ref="scroll"
-            :data = "[]"
+            :data = '[]'
             :click = "click"
             :scrollbar="scrollbarObj"
-            :startY="parseInt(startY)">
+            :pullUpLoad="pullUpLoadObj"
+            :startY="parseInt(startY)"
+            @pullingUp="onPullingUp">
       <!-- 主题 banner -->
       <div class="banner">
         <img class="theme-img" :src="themeImg">
@@ -43,10 +45,15 @@ export default {
   data () {
     return {
       themelist: [],
+      // themeStoriesS: [],
       themeImg: '',
       editors: [],
       scrollbar: true,
       scrollbarFade: true,
+      pullUpLoad: true,
+      pullUpLoadThreshold: 50,
+      pullUpLoadMoreTxt: ' ',
+      pullUpLoadNoMoreTxt: '没有更多数据了',
       startY: 0,
       click: true
     }
@@ -87,11 +94,33 @@ export default {
           id: newsId
         }
       })
+    },
+    onPullingUp () {
+      let _this = this
+      let themeId = this.$route.query.id
+      let newsId = this.themelist.slice(-1)[0].stories.slice(-1)[0].id
+      console.log('themeId -- newsId', themeId, newsId)
+      // 更新数据
+      setTimeout(() => {
+        // 获取新数据
+        console.log('request new data ...')
+        Axios.getThemeNewsBeforeById(themeId, newsId)
+        .then(res => {
+          console.log('getThemeNewsBeforeById', res.data.stories)
+          _this.themelist.push(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }, 500)
     }
   },
   computed: {
     scrollbarObj: function () {
       return this.scrollbar ? {fade: this.scrollbarFade} : false
+    },
+    pullUpLoadObj: function () {
+      return this.pullUpLoad ? {threshold: parseInt(this.pullUpLoadThreshold), txt: {more: this.pullUpLoadMoreTxt, noMore: this.pullUpLoadNoMoreTxt}} : false
     }
   },
   watch: {
