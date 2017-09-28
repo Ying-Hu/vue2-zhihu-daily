@@ -96,7 +96,6 @@ export default {
       this.$router.go(-1)
     },
     changeScFlag () {
-      // 解决 20170926 1:00, cover 20170926 11：36 使用 nextTick
       this.scFlag = !this.scFlag
       this.$nextTick(() => {
         this.refresh()
