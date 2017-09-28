@@ -38,11 +38,13 @@ export default {
   data () {
     return {
       news: null,
+      preNewsId: '',
+      newsId: '',
       goodNumber: '',
       comments: '',
       scrollbar: true,
       scrollbarFade: true,
-      pullUpLoad: true,
+      pullUpLoad: false,
       pullUpLoadThreshold: 50,
       pullUpLoadMoreTxt: ' ',
       pullUpLoadNoMoreTxt: '没有更多数据了',
@@ -54,28 +56,34 @@ export default {
     Scroll
   },
   created () {
-    this.getNews()
-    this.getNewsInfo()
+    this.getNewsId()
+    this.getNews(this.newsId)
+    this.getNewsInfo(this.newsId)
   },
   methods: {
     ...mapActions([
       'changeBackFlag'
     ]),
-    getNews () {
+    getNewsId () {
+      this.newsId = this.$route.query.id
+    },
+    getNews (newsId) {
       // console.log('router', this.$route.query.id)
-      let newsId = this.$route.query.id
+      // let newsId = this.$route.query.id
       Axios.getNewsById(newsId)
       .then(res => {
         console.log('res.data', res.data)
         this.news = res.data
+        this.preNewsId = res.data.ga_prefix
+        // console.log('pre news ', this.preNewsId)
         // this.addLinkTag(cssurl)
       })
       .catch(err => {
         console.log(err)
       })
     },
-    getNewsInfo () {
-      let newsId = this.$route.query.id
+    getNewsInfo (newsId) {
+      // let newsId = this.$route.query.id
       Axios.getNewsInfoById(newsId)
       .then(res => {
         console.log('getNewsInfoById', res.data)
@@ -170,6 +178,8 @@ export default {
           right .2rem
           bottom .2rem
           color #999
+      .news-body
+        padding-bottom .5rem
     .news-footer
       position fixed
       left 0

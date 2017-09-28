@@ -75,8 +75,8 @@ export default {
         this.themelist.push(res.data)
         this.themeImg = res.data.image
         this.editors = res.data.editors
-        // console.log('themelist')
-        // console.log(this.themelist)
+        console.log('themelist')
+        console.log(this.themelist)
         // console.log('themelist[0]', this.themelist[0])
       })
       .catch((err) => {
