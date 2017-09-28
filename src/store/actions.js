@@ -5,6 +5,9 @@ const actions = {
   },
   changeAddIcon: ({commit}, flag) => {
     commit(types.CHANGEADDICON, flag)
+  },
+  changeBarFlag: ({commit}, flag) => {
+    commit(types.CHANGEBARFLAG, flag)
   }
 }
 

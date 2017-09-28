@@ -2,8 +2,8 @@
   <div id="app">
     <!-- 头部 -->
     <header class="header" v-show="headerFlag">
-      <i v-if="backFlag" class="iconfont icon-left" @click="goBack()"></i>
-      <i v-else class="iconfont icon-caidan" @click="toggleBar(true)"></i>
+      <i v-if="backFlag" class="iconfont icon-left" @click="showBar"></i>
+      <i v-else class="iconfont icon-caidan" @click="showBar"></i>
       <div class="title-content">
         <!-- <Loading></Loading> -->
         <h1 class="theme-title" :title="title">{{title}}</h1>
@@ -11,7 +11,7 @@
       <i class="iconfont icon-add" v-show="addIcon"></i>
     </header>
     <!-- 主题选择 -->
-    <aside class="aside" :class="{showbar: showbar}">
+    <aside class="aside" :class="{showbar: barFlag}">
       <!-- 用户信息 -->
       <div class="user-info">
         <img src="http://ol5i1a679.bkt.clouddn.com/head.JPG" class="user-pic">
@@ -55,7 +55,7 @@
     </aside>
 
       <!-- 遮罩 -->
-      <div class="mask" v-if="showmask" @click="toggleBar(false)"></div>
+      <div class="mask" v-if="barFlag" @click="hideBar(false)"></div>
     <router-view></router-view>
   </div>
 </template>
@@ -75,9 +75,7 @@ export default {
       headTitle: 'Today Hot News',
       headerFlag: true,
       themeList: [],
-      click: true,
-      showmask: false,
-      showbar: false
+      click: true
     }
   },
   components: {
@@ -86,7 +84,8 @@ export default {
   computed: {
     ...mapGetters([
       'backFlag',
-      'addIcon'
+      'addIcon',
+      'barFlag'
     ]),
     title () {
       let themeId = this.$route.query.id ? this.$route.query.id : ''
@@ -124,26 +123,25 @@ export default {
   methods: {
     ...mapActions([
       'changeBackFlag',
-      'changeAddIcon'
+      'changeAddIcon',
+      'changeBarFlag'
     ]),
-    toggleBar (flag) {
-      if (flag) {
-        this.showbar = true
-        this.showmask = true
-      } else {
-        this.showbar = false
-        this.showmask = false
-      }
+    showBar () {
+      this.changeBarFlag(true)
+    },
+    hideBar () {
+      this.changeBarFlag(false)
     },
     toHome () {
-      this.toggleBar(false)
+      this.hideBar(false)
       this.changeAddIcon(false)
       this.$router.push({
         path: '/'
       })
     },
     toThemePage (themeId) {
-      this.toggleBar(false)
+      this.hideBar(false)
+      this.changeBackFlag(true)
       this.changeAddIcon(true)
       // console.log(themeId)
       let path = 'theme'
@@ -174,8 +172,6 @@ export default {
       this.listScroll = new BScroll(this.$refs.listwrapper, options)
     },
     goBack () {
-      // console.log('router.go', this.$router.go)
-      this.$router.go(-1)
       this.changeBackFlag(false)
     },
     changeHeader () {

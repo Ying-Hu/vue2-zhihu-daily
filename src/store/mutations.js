@@ -5,6 +5,9 @@ const mutations = {
   },
   [types.CHANGEADDICON]: (state, flag) => {
     return (state.addIcon = flag)
+  },
+  [types.CHANGEBARFLAG]: (state, flag) => {
+    return (state.barFlag = flag)
   }
 }
 
