@@ -15,6 +15,6 @@ npm run build
 ```
 
 ## LICENSE
-[MIT](./LICENSE)
+[MIT](https://github.com/FerdYing/vue2-zhihu-daily/blob/master/LICENSE)
 
 
