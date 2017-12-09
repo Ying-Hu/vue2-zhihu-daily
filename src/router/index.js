@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from 'views/home'
 import Theme from 'views/theme'
+import userInfo from 'views/user'
 import newsDetail from 'views/newsDetail'
 import newsComments from 'views/newsComments'
 
@@ -29,6 +30,11 @@ export default new Router({
       path: '/newsComments',
       name: 'newsComments',
       component: newsComments
+    },
+    {
+      path: '/userInfo',
+      name: 'userInfo',
+      component: userInfo
     },
     {
       path: '*',

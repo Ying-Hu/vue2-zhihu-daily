@@ -8,12 +8,12 @@
         <!-- <Loading></Loading> -->
         <h1 class="theme-title" :title="title">{{title}}</h1>
       </div>
-      <i class="iconfont icon-add" v-show="addIcon"></i>
+      <span class="iconfont" ><i class="iconfont icon-add" v-show="addIcon"></i></span>
     </header>
     <!-- 主题选择 -->
     <aside class="aside" :class="{showbar: barFlag}">
       <!-- 用户信息 -->
-      <div class="user-info">
+      <div class="user-info" @click="toUserInfo">
         <img src="http://ol5i1a679.bkt.clouddn.com/head.JPG" class="user-pic">
         <span class="user-name">FerdYing</span>
       </div>
@@ -67,6 +67,7 @@ import Axios from 'api'
 import {mapGetters, mapActions} from 'vuex'
 
 const COMPONENT_NAMER = 'app'
+const USERINFOID = 21
 
 export default {
   name: COMPONENT_NAMER,
@@ -115,8 +116,10 @@ export default {
           return '动漫日报'
         case 8:
           return '体育日报'
+        case 21:
+          return 'Author'
         default:
-          return 'Today Hot News'
+          return '今日热闻'
       }
     }
   },
@@ -134,9 +137,21 @@ export default {
     },
     toHome () {
       this.hideBar(false)
+      this.changeBackFlag(false)
       this.changeAddIcon(false)
       this.$router.push({
         path: '/'
+      })
+    },
+    toUserInfo () {
+      this.hideBar(false)
+      this.changeBackFlag(true)
+      this.changeAddIcon(false)
+      this.$router.push({
+        name: 'userInfo',
+        query: {
+          id: USERINFOID
+        }
       })
     },
     toThemePage (themeId) {
@@ -177,7 +192,8 @@ export default {
     changeHeader () {
       // console.log('watch route')
       let routerName = this.$route.name
-      if (routerName === 'theme' || routerName === 'home') {
+      // console.log('backFlag', this.backFlag)
+      if (routerName === 'theme' || routerName === 'home' || routerName === 'userInfo') {
         this.headerFlag = true
       } else {
         this.headerFlag = false
@@ -206,11 +222,12 @@ export default {
     padding 0 0.2rem
     display flex
     align-items center
+    justify-content center
     z-index 9
     background-image linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.51) 95%)
     .title-content
       display flex
-      flex 1
+      flex 6
       justify-content center
       align-items center
       .theme-title
@@ -218,10 +235,11 @@ export default {
         margin-left .1rem
         text-align center
         color #fff
-        font-size 0.4rem
+        font-size 0.5rem
     .iconfont
       color #fff
       font-size 0.65rem
+      flex 1
   
   .aside
     position absolute
@@ -239,7 +257,7 @@ export default {
     opacity .9
     transition: all .3s ease
     .user-info
-      width 100%
+      margin-right 1rem
       display flex
       align-items center
       .user-pic
