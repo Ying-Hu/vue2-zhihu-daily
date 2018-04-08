@@ -14,7 +14,7 @@
     <aside class="aside" :class="{showbar: barFlag}">
       <!-- 用户信息 -->
       <div class="user-info" @click="toUserInfo">
-        <img src="http://ol5i1a679.bkt.clouddn.com/head.JPG" class="user-pic">
+        <img src="http://p3zj4j3pw.bkt.clouddn.com/IMG_5955.JPG" class="user-pic">
         <span class="user-name">FerdYing</span>
       </div>
       <!-- 用户操作 -->
